@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  # My grafana service
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    user: "1000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./provisioning:/etc/grafana/provisioning
+      - ./data:/var/lib/grafana
+    networks:
+      - grafnet
+
+networks:
+  grafnet:
+    name: smarthome_net
