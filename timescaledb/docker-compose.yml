@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  timescaledb:
+    image: timescale/timescaledb-ha:pg14-latest
+    container_name: timescaledb
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: timescaledb
+      POSTGRES_PASSWORD: timescaledb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data:/var/lib/postgresql/data
+      - ./home:/home/postgres/pgdata/data
+    networks:
+      - iotnet
+
+networks:
+   iotnet:
+      name: smarthome_net
